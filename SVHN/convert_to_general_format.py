@@ -8,28 +8,29 @@ import numpy as np
 import mat73
 from collections import defaultdict
 
+
 def process_svhn(images_dir):
     mat_file = mat73.loadmat(os.path.join(images_dir, "digitStruct.mat"))
-    
-    dSName = mat_file['digitStruct']['name']
-    dSBbox = mat_file['digitStruct']['bbox']
+
+    dSName = mat_file["digitStruct"]["name"]
+    dSBbox = mat_file["digitStruct"]["bbox"]
 
     for i in tqdm.tqdm(range(len(dSName))):
         bbox_dict = dSBbox[i]
         image_name = os.path.basename(dSName[i])
 
-        x1 = int(np.array(bbox_dict['left']).min())
-        y1 = int(np.array(bbox_dict['top']).min())
-        x2 = int((np.array(bbox_dict['left']) + np.array(bbox_dict['width'])).max())
-        y2 = int((np.array(bbox_dict['top']) + np.array(bbox_dict['height'])).max())
-        
-        if bbox_dict['label'] is None:
+        x1 = int(np.array(bbox_dict["left"]).min())
+        y1 = int(np.array(bbox_dict["top"]).min())
+        x2 = int((np.array(bbox_dict["left"]) + np.array(bbox_dict["width"])).max())
+        y2 = int((np.array(bbox_dict["top"]) + np.array(bbox_dict["height"])).max())
+
+        if bbox_dict["label"] is None:
             continue
-        
+
         try:
-            # 10 classes, 1 for each digit. Digit '1' has label 1, '9' has label 9 and '0' has label 10. 
+            # 10 classes, 1 for each digit. Digit '1' has label 1, '9' has label 9 and '0' has label 10.
             text = ""
-            for label in bbox_dict['label']:
+            for label in bbox_dict["label"]:
                 if int(label) == 10:
                     label = "0"
                 text += str(int(label))
@@ -37,16 +38,16 @@ def process_svhn(images_dir):
             continue
 
         row = {
-            "image_name" : os.path.join(images_dir, image_name),
+            "image_name": os.path.join(images_dir, image_name),
             "text": text,
-            "bbox": [x1, y1, x2-x1, y2-y1]
+            "bbox": [x1, y1, x2 - x1, y2 - y1],
         }
 
         yield row
-    
+
 
 def display_data(row):
-    data = cv2.imread(row['image_name'])
+    data = cv2.imread(row["image_name"])
 
     fig, ax = plt.subplots()
 
@@ -90,7 +91,7 @@ if __name__ == "__main__":
 
     with open(os.path.join(args.images_dir, "ann_file.jsonl"), "w") as fd:
         fd.write("")
-    
+
     out_dataset = defaultdict(list)
 
     for row in process_svhn(args.images_dir):
@@ -98,14 +99,13 @@ if __name__ == "__main__":
             display_data(row)
             args.display_first = False
 
-        out_dataset[row['image_name']].append({
-            "text" : row['text'],
-            "bbox" : row['bbox']
-        })
+        out_dataset[row["image_name"]].append(
+            {"text": row["text"], "bbox": row["bbox"]}
+        )
 
     with open(os.path.join(args.images_dir, "ann_file.jsonl"), "w") as fd:
         fd.write("")
-    
+
     for image_file_name, texts in out_dataset.items():
         with open(os.path.join(args.images_dir, "ann_file.jsonl"), "a") as fd:
             fd.write(
