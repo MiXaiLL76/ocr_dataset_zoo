@@ -176,3 +176,7 @@ ctw1500_test_labels
 test_images
 train_images
 *.zip
+
+SVHN/train
+SVHN/test
+*.tar.gz

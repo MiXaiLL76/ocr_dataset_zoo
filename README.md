@@ -9,3 +9,4 @@ I collected some commonly used datasets for OCR. Converted them to a common data
 | Name    | Lang       | Origin                                             | Folder               | Huggingface                                                                    |
 | ------- | ---------- | -------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------ |
 | CTW1500 | en + digit | https://github.com/Yuliang-Liu/Curve-Text-Detector | [CTW1500](./CTW1500) | [MiXaiLL76/CTW1500_OCR](https://huggingface.co/datasets/MiXaiLL76/CTW1500_OCR) |
+| SVHN    | digit      | http://ufldl.stanford.edu/housenumbers/            | [SVHN](./SVHN)       | [MiXaiLL76/SVHN](https://huggingface.co/datasets/MiXaiLL76/SVHN)               |
