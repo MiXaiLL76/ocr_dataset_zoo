@@ -89,9 +89,6 @@ if __name__ == "__main__":
 
     os.makedirs(args.images_dir, exist_ok=True)
 
-    with open(os.path.join(args.images_dir, "ann_file.jsonl"), "w") as fd:
-        fd.write("")
-
     out_dataset = defaultdict(list)
 
     for row in process_svhn(args.images_dir):
