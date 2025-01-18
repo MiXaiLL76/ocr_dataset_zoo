@@ -59,7 +59,7 @@ def display_data(row):
     image = np.frombuffer(buf, dtype=np.uint8).reshape(nrows, ncols, 4)
     image = cv2.cvtColor(image, cv2.COLOR_RGBA2RGB)
 
-    key = "_".join(title)
+    key = "_".join(title).replace(" ", "_")
     cv2.imwrite(f".examples/{key}_{os.path.basename(row['image_name'])}", image)
 
     return image
