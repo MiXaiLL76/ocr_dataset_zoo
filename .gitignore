@@ -187,3 +187,5 @@ ICDAR2013/ic13_textrecog_train_img_gt
 ICDAR2013/textrecog_test.json
 ICDAR2013/ic13_train_labels.json
 ICDAR2013/gt.txt
+ICDAR2015/ic15_textrecog_test_img
+ICDAR2015/ic15_textrecog_train_img_gt

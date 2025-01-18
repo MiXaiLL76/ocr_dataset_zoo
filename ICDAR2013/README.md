@@ -1,7 +1,7 @@
 # ICDAR2013
 
 ## META
-<https://github.com/open-mmlab/mmocr/blob/main/dataset_zoo/textocr/metafile.yml>
+<https://github.com/open-mmlab/mmocr/blob/main/dataset_zoo/icdar2013/metafile.yml>
 
 ```yaml
 Name: 'Incidental Scene Text IC13'
