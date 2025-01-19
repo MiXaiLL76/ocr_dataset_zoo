@@ -1,0 +1,117 @@
+<!-- out_bbox: {"x1" : 25, "y1" : 25, "x2" : 255, "y2" : 120}; -->
+
+<html lang="en">
+
+<head>
+    <script src="./jquery.min.js"></script>
+    <script src="./jquery-ui.min.js"></script>
+    <script src="./knockout-2.2.1.js"></script>
+    <script src="./sevenSeg.js"></script>
+    <style>
+        :root {
+            --width: 185px;
+            --height: 60px;
+
+            --base_color: 10;
+            /* 0 - 360 */
+            --on_light: 90%;
+            /* 50 - 70 */
+            --off_light: 25%;
+            /* 20 - 35 */
+            --bg_light: 15%;
+            /* 10 - 17 */
+
+            --colorOn: hsl(var(--base_color), 100%, var(--on_light));
+            --colorOff: hsl(var(--base_color), 100%, var(--off_light));
+            --background: hsl(var(--base_color), 100%, var(--bg_light));
+
+            --bg_color: 11;
+            /* 0 - 360 */
+            --background_body: hsl(var(--bg_color), 100%, var(--off_light));
+            --digit_skew: -10deg;
+            --lens_size: 10vmin;
+            --lens_left: -50%;
+            --lens_top: -50%;
+        }
+
+        #seven-seg-style {
+            /* width: var(--width); */
+            position: relative;
+            left: 52px;
+            width: 140px;
+            height: var(--height);
+            padding: 0px 5px 0px 5px;
+            background: var(--background);
+            border: 5px solid gray;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+
+            -webkit-filter: blur(1px);
+            -moz-filter: blur(1px);
+            -o-filter: blur(1px);
+            -ms-filter: blur(1px);
+            filter: blur(1px);
+        }
+
+        #seven-seg-bg {
+            position: relative;
+            width: calc(var(--width) + 20px);
+            height: calc(var(--height) + 10px);
+            border: 15px solid gray;
+            border-top: 5px;
+            border-radius: 5px;
+            display: flex;
+            margin: 15px;
+            outline: 6px solid black;
+        }
+
+        .sevenSeg-svg {
+            background: var(--background);
+            transform: skew(var(--digit_skew));
+            fill: var(--colorOff);
+        }
+
+        use:not(.sevenSeg-segOn),
+        circle:not(.sevenSeg-segOn) {
+            opacity: 0.05;
+        }
+
+        .sevenSeg-segOn {
+            fill: var(--colorOn);
+            -webkit-filter: drop-shadow(0px 0px 5px var(--colorOn));
+            filter: drop-shadow(0px 0px 5px var(--colorOn))
+        }
+
+
+        html,
+        body {
+            background: var(--background_body);
+            display: table;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="seven-seg-bg">
+        <div id="seven-seg-style">
+        </div>
+    </div>
+    <!-- <img src="./3.437.jpeg" alt="" srcset=""> -->
+
+    <script>
+        let digits = 5;
+        let value = "3.437";
+        let thickness = 0.7;
+
+        $("#seven-seg-style").sevenSegArray({
+            digits: digits,
+            value: value,
+            segmentOptions: {
+                thickness: thickness,
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -192,3 +192,4 @@ ICDAR2015/ic15_textrecog_train_img_gt
 IIIT5K/IIIT5K
 IIIT5K/train_label.txt
 IIIT5K/test_label.txt
+7SEG/7_seg_dataset/

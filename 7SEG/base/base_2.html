@@ -1,0 +1,99 @@
+<!-- out_bbox: {"x1" : 25, "y1" : 25, "x2" : 255, "y2" : 120}; -->
+
+<html lang="en">
+
+<head>
+    <script src="./jquery.min.js"></script>
+    <script src="./jquery-ui.min.js"></script>
+    <script src="./knockout-2.2.1.js"></script>
+    <script src="./sevenSeg.js"></script>
+    <style>
+        :root {
+            --width: 185px;
+            --height: 60px;
+
+            --base_color: 40;
+            /* 0 - 360 */
+            --on_light: 65%;
+            /* 50 - 70 */
+            --off_light: 25%;
+            /* 20 - 35 */
+            --bg_light: 15%;
+            /* 10 - 17 */
+
+            --colorOn: hsl(var(--base_color), 100%, var(--on_light));
+            --colorOff: hsl(var(--base_color), 100%, var(--off_light));
+            --background: hsl(var(--base_color), 100%, var(--bg_light));
+
+            --bg_color: 11;
+            /* 0 - 360 */
+            --background_body: hsl(var(--bg_color), 100%, var(--off_light));
+            --background_opacity: 0.1;
+            --digit_skew: -15deg;
+            --lens_size: 10vmin;
+            --lens_left: -50%;
+            --lens_top: -50%;
+        }
+
+        #seven-seg-style {
+            width: var(--width);
+            height: var(--height);
+            padding: 0px 5px 0px 5px;
+            background: var(--background);
+            color: var(--background);
+        }
+
+        #seven-seg-bg {
+            position: relative;
+            width: calc(var(--width) + 20px);
+            height: calc(var(--height) + 10px);
+            display: flex;
+            margin: 30px;
+        }
+
+        .sevenSeg-svg {
+            background: var(--background);
+            fill: var(--colorOff);
+            transform: skew(var(--digit_skew));
+        }
+
+        use:not(.sevenSeg-segOn),
+        circle:not(.sevenSeg-segOn) {
+            opacity: var(--background_opacity);
+        }
+
+        .sevenSeg-segOn {
+            fill: var(--colorOn);
+        }
+
+
+        html,
+        body {
+            background: var(--background);
+            display: table;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="seven-seg-bg">
+        <div id="seven-seg-style">
+        </div>
+    </div>
+    <script>
+        let digits = 5;
+        let value = "3.437";
+        let thickness = 0.7;
+
+        $("#seven-seg-style").sevenSegArray({
+            digits: digits,
+            value: value,
+            segmentOptions: {
+                thickness: thickness,
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,204 @@
+<!-- out_bbox: {"x1" : 25, "y1" : 20, "x2" : 840, "y2" : 250}; -->
+
+<html lang="en">
+
+<head>
+    <script src="./jquery.min.js"></script>
+    <script src="./jquery-ui.min.js"></script>
+    <script src="./knockout-2.2.1.js"></script>
+    <script src="./sevenSeg.js"></script>
+    <style>
+        :root {
+            --width: 185px;
+            --height: 60px;
+
+            --base_color: 50;
+            /* 0 - 360 */
+            --on_light: 50%;
+            /* 50 - 70 */
+            --off_light: 25%;
+            /* 20 - 35 */
+            --bg_light: 15%;
+            /* 10 - 17 */
+
+            --colorOn: hsl(var(--base_color), 100%, var(--on_light));
+            --colorOff: hsl(var(--base_color), 100%, var(--off_light));
+            --background: hsl(var(--base_color), 100%, var(--bg_light));
+
+            --bg_color: 11;
+            /* 0 - 360 */
+            --background_body: hsl(var(--bg_color), 100%, var(--off_light));
+        }
+
+        .seven-seg-style {
+            /* width: var(--width); */
+            position: relative;
+            left: 28px;
+            height: var(--height);
+            -webkit-filter: blur(1px);
+            -moz-filter: blur(1px);
+            -o-filter: blur(1px);
+            -ms-filter: blur(1px);
+            filter: blur(1px);        
+        }
+        .seven-seg-style > div{
+            width: 25px !important;
+            margin-top: 12px;
+            margin-left: 3px;
+            padding-right: 3px;
+            display: block;
+        }
+        
+        #seven-seg-bg {
+            position: relative;
+            width: calc(var(--width) + 20px);
+            height: calc(var(--height) + 10px);
+            display: flex;
+            margin: 15px;
+            background: url("./6_digit_7seg.jpg");
+            background-repeat: no-repeat;
+            background-size: 100%;
+
+            scale: 4;
+            left: 305px;
+            top: 55px;
+
+            /* scale: 2;
+            left: 150px;
+            top: 27px; */
+        }
+
+        .sevenSeg-svg {
+            transform: skew(-10deg);
+            fill: var(--colorOff);
+            background: none;
+        }
+
+        use:not(.sevenSeg-segOn),
+        circle:not(.sevenSeg-segOn) {
+            opacity: 0.05;
+        }
+        /* circle:.sevenSeg-segOn{
+
+        } */
+        .sevenSeg-segOn {
+            fill: var(--colorOn);
+            /* -webkit-filter: drop-shadow(0px 0px 5px var(--colorOn)); */
+            /* filter: drop-shadow(0px 0px 5px var(--colorOn)) */
+        }
+
+        #seven-seg-dig3{
+            top: -0.5px;
+        }
+        #seven-seg-dig4{
+            height: 34px !important;
+            top: 12px;
+            left: 27px;
+            transform: skew(1deg);
+        }
+        #seven-seg-dig5{
+            height: 32px !important;
+            top: 13px;
+            left: 24px;
+            transform: skew(1deg);
+        }
+        #seven-seg-dig6{
+            height: 31px !important;
+            top: 13px;
+            left: 20px;
+            transform: skew(3deg);
+        }
+        html,
+        body {
+            background: var(--background_body);
+            display: table;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="seven-seg-bg">
+        <div class="seven-seg-style" id="seven-seg-dig1"></div>
+        <div class="seven-seg-style" id="seven-seg-dig2"></div>
+        <div class="seven-seg-style" id="seven-seg-dig3"></div>
+        <div class="seven-seg-style" id="seven-seg-dig4"></div>
+        <div class="seven-seg-style" id="seven-seg-dig5"></div>
+        <div class="seven-seg-style" id="seven-seg-dig6"></div>
+    </div>
+
+    <script>
+        let thickness = 0.8;
+        let value = "3.437";
+        let value_list = [];
+
+        for (let i = 0; i < value.length; i++) {
+            if (value.charAt(i) == "."){
+                value_list[value_list.length - 1] += value.charAt(i);
+            }else{
+                value_list.push(value.charAt(i));
+            }
+        }
+        
+        while (value_list.length < 6) {
+            value_list = [""].concat(value_list);
+        }
+
+        $("#seven-seg-dig1").sevenSegArray({
+            digits: 1,
+            value: value_list[0],
+            segmentOptions: {
+                thickness: thickness,
+                decimalPointY: 73,
+                decimalPointX: 56,
+            }
+        });
+        $("#seven-seg-dig2").sevenSegArray({
+            digits: 1,
+            value: value_list[1],
+            segmentOptions: {
+                thickness: thickness,
+                decimalPointY: 72,
+                decimalPointX: 56,
+            }
+        });
+        $("#seven-seg-dig3").sevenSegArray({
+            digits: 1,
+            value: value_list[2],
+            segmentOptions: {
+                thickness: thickness,
+                decimalPointY: 73,
+                decimalPointX: 54,
+            }
+        });
+        $("#seven-seg-dig4").sevenSegArray({
+            digits: 1,
+            value: value_list[3],
+            segmentOptions: {
+                thickness: thickness,
+                decimalPointY: 73,
+                decimalPointX: 54,
+            }
+        });
+        $("#seven-seg-dig5").sevenSegArray({
+            digits: 1,
+            value: value_list[4],
+            segmentOptions: {
+                thickness: thickness,
+                decimalPointY: 74,
+                decimalPointX: 54,
+            }
+        });
+        $("#seven-seg-dig6").sevenSegArray({
+            digits: 1,
+            value: value_list[5],
+            segmentOptions: {
+                thickness: thickness,
+                decimalPointY: 75,
+                decimalPointX: 52,
+            }
+        });
+    </script>
+</body>
+
+</html>
