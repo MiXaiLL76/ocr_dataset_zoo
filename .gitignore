@@ -189,3 +189,6 @@ ICDAR2013/ic13_train_labels.json
 ICDAR2013/gt.txt
 ICDAR2015/ic15_textrecog_test_img
 ICDAR2015/ic15_textrecog_train_img_gt
+IIIT5K/IIIT5K
+IIIT5K/train_label.txt
+IIIT5K/test_label.txt
