@@ -6,6 +6,25 @@
 
 ## GENERATE
 
+To generate the dataset, js+html+css is used.
+Libraries:
+- jquery
+- knockout
+- sevenSeg (Modified)
+
+The dataset is generated via python + chromenium.
+
+### Pre required
+
+The generation uses the python environment and some auxiliary libraries.
+
+They should be installed according to the following instructions:
+
+```bash
+apt install chromium-browser
+pip install html2image tqdm numpy opencv-python-headless
+```
+
 ```bash
 python3 generate.py --images_dir 7_seg_dataset
 ```
