@@ -8,28 +8,48 @@ import numpy as np
 from collections import defaultdict
 import pandas as pd
 
+
 def process_icdar2015(images_dir):
     dataframe = []
-    with open(os.path.join(images_dir, "gt.txt"), encoding='utf-8-sig') as fd:
+    with open(os.path.join(images_dir, "gt.txt"), encoding="utf-8-sig") as fd:
         for line in fd.readlines():
-            dataframe.append({
-                "file" : line[:line.index(",")].strip(),
-                "text" : line[line.index(",")+1:].strip()[1:-1].strip(),
-            })
-            
-    
+            dataframe.append(
+                {
+                    "file": line[: line.index(",")].strip(),
+                    "text": line[line.index(",") + 1 :].strip()[1:-1].strip(),
+                }
+            )
+
     dataframe = pd.DataFrame(dataframe)
     coords_dataframe = pd.read_csv(
-        os.path.join(images_dir, "coords.txt"), 
+        os.path.join(images_dir, "coords.txt"),
         names=["file", "x1", "y1", "x2", "y2", "x3", "y3", "x4", "y4"],
-        dtype={'file': str}
+        dtype={"file": str},
     )
-    full_dataframe = dataframe.set_index('file').join(coords_dataframe.set_index('file'))
+    full_dataframe = dataframe.set_index("file").join(
+        coords_dataframe.set_index("file")
+    )
 
-    for image_name, row in tqdm.tqdm(full_dataframe.iterrows(), total=len(full_dataframe)):
-        text = row['text']
-        segs = [row['x1'], row['y1'], row['x2'], row['y2'], row['x3'], row['y3'], row['x4'], row['y4']]
-        bbox = [min(segs[::2]), min(segs[1::2]), max(segs[::2]) - min(segs[::2]), max(segs[1::2]) - min(segs[1::2])]
+    for image_name, row in tqdm.tqdm(
+        full_dataframe.iterrows(), total=len(full_dataframe)
+    ):
+        text = row["text"]
+        segs = [
+            row["x1"],
+            row["y1"],
+            row["x2"],
+            row["y2"],
+            row["x3"],
+            row["y3"],
+            row["x4"],
+            row["y4"],
+        ]
+        bbox = [
+            min(segs[::2]),
+            min(segs[1::2]),
+            max(segs[::2]) - min(segs[::2]),
+            max(segs[1::2]) - min(segs[1::2]),
+        ]
         row = {
             "image_name": os.path.join(images_dir, image_name),
             "text": text,
@@ -37,7 +57,6 @@ def process_icdar2015(images_dir):
             "segs": segs,
         }
         yield row
-
 
 
 def display_data(texts, image_file_name):

@@ -3,7 +3,7 @@
     var numberSegments = [0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F]; //http://en.wikipedia.org/wiki/Seven-segment_display
 
     // Default CSS styles. If you don't specify your own CSS or discrete color options, this is what gets used.
-    // 
+    //
     $("<style type='text/css'>"
         + ".sevenSeg-svg {fill: #320000; overflow: hidden; stroke-width: 0; height: 100%; width: 100%; background-color: Black}"
         + ".sevenSeg-segOn {fill: Red}"
@@ -20,26 +20,26 @@
             value: null,
 
             /**
-            Override the default segment on color (Red).  
+            Override the default segment on color (Red).
             Note: You can alternatively define a CSS style for the class.sevenSeg-segOn that specifies a 'fill' color.
             */
             colorOn: null,
 
             /**
-            Override the default segment off color (#320000).  
+            Override the default segment off color (#320000).
             Note: You can alternatively define a CSS style for the class .sevenSeg-svg that specifies a 'fill' color.
             */
             colorOff: null,
 
             /**
-            Override the default background color of the display (Black).  
+            Override the default background color of the display (Black).
             Note: You can alternatively define a CSS style for the class .sevenSeg-svg that specifies a 'background-color' color.
             */
             colorBackground: null,
 
             /**
             This option allows skewing the segments to create a slant effect.
-            Note: Setting "transform: skew()" in CSS is problematic for SVG. Would be nice to have, but browser support just 
+            Note: Setting "transform: skew()" in CSS is problematic for SVG. Would be nice to have, but browser support just
             isn't there yet. So, setting the slant must be done through options.
             */
             slant: 0,
@@ -53,7 +53,7 @@
             decimalPointY: 75,
 
             /**
-            Line thickness. 
+            Line thickness.
             */
             thickness: 1,
         },
@@ -156,7 +156,7 @@
         },
 
         /**
-        Return the bitfield mask for the segments to illuminate for the argumen numeric digit value.    
+        Return the bitfield mask for the segments to illuminate for the argumen numeric digit value.
         */
         _getSegments: function (value) {
             if (value === "-") return 0x40;

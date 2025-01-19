@@ -12,26 +12,27 @@ def process_file_dir(labels_file, images_dir):
     with open(labels_file) as fd:
         data = json.load(fd)
 
-    for _, ann in tqdm.tqdm(data['anns'].items()):
-        label = ann['utf8_string']
-        image = data['imgs'][ann['image_id']]
+    for _, ann in tqdm.tqdm(data["anns"].items()):
+        label = ann["utf8_string"]
+        image = data["imgs"][ann["image_id"]]
 
-        x,y,w,h = np.array(ann['bbox']).astype(int).tolist()
+        x, y, w, h = np.array(ann["bbox"]).astype(int).tolist()
 
-        file_name = os.path.basename(image['file_name'])
+        file_name = os.path.basename(image["file_name"])
         file_name = os.path.join(images_dir, file_name)
 
         if not os.path.exists(file_name):
             continue
-        
+
         row = {
             "image_name": file_name,
             "text": label,
-            "bbox": [x,y,w,h],
-            "segs" : ann['points']
+            "bbox": [x, y, w, h],
+            "segs": ann["points"],
         }
 
         yield row
+
 
 def display_data(texts, image_file_name):
     data = cv2.imread(image_file_name)
@@ -94,12 +95,11 @@ if __name__ == "__main__":
     ann_file = "train_ann_file.jsonl"
     if "val" in args.labels:
         ann_file = "val_ann_file.jsonl"
-    
+
     with open(os.path.join(args.images_dir, ann_file), "w") as fd:
         fd.write("")
 
     for image_file_name, texts in out_dataset.items():
-        
         if len(texts) < 5:
             if args.display_first:
                 display_data(texts, image_file_name)

@@ -1,6 +1,7 @@
 # IIIT5K
 
 ## META
+
 <https://github.com/open-mmlab/mmocr/blob/main/dataset_zoo/iiit5k/metafile.yml>
 
 ```yaml
@@ -41,7 +42,7 @@ wget --no-check-certificate https://download.openmmlab.com/mmocr/data/mixture/II
 
 ```
 
-## CONVERT 
+## CONVERT
 
 ```bash
 python3 convert_to_general_format.py --labels train_label.txt --images_dir ./IIIT5K/train
@@ -55,6 +56,6 @@ python3 convert_to_general_format.py --labels test_label.txt --images_dir ./IIIT
 
 ## READY DATASETS
 
-| TRAIN                                            | TEST                                           |
-| ------------------------------------------------ | ---------------------------------------------- |
+| TRAIN                                                  | TEST                                                     |
+| ------------------------------------------------------ | -------------------------------------------------------- |
 | ![train_image](.examples/You_1009_2.png "Train Image") | ![test_image](.examples/PRIVATE_1002_1.png "Test Image") |

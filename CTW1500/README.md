@@ -1,6 +1,7 @@
 # CTW1500
 
 ## META
+
 <https://github.com/open-mmlab/mmocr/blob/main/dataset_zoo/ctw1500/metafile.yml>
 
 ```yaml
@@ -52,7 +53,7 @@ wget -O ctw1500_test_labels.zip https://gist.github.com/MiXaiLL76/93aba8ba2c1e22
 
 ```
 
-## CONVERT 
+## CONVERT
 
 ```bash
 python3 convert_to_general_format.py --labels_dir ctw1500_train_labels --images_dir train_images

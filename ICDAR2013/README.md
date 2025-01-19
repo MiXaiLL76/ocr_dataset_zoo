@@ -1,6 +1,7 @@
 # ICDAR2013
 
 ## META
+
 <https://github.com/open-mmlab/mmocr/blob/main/dataset_zoo/icdar2013/metafile.yml>
 
 ```yaml
@@ -47,7 +48,7 @@ wget --no-check-certificate -O textrecog_test.json https://download.openmmlab.co
 
 ```
 
-## CONVERT 
+## CONVERT
 
 ```bash
 python3 convert_to_general_format.py --labels ic13_train_labels.json --images_dir ic13_textrecog_train_img_gt
@@ -60,6 +61,6 @@ python3 convert_to_general_format.py --labels textrecog_test.json --images_dir i
 
 ## READY DATASETS
 
-| TRAIN                                            | TEST                                           |
-| ------------------------------------------------ | ---------------------------------------------- |
+| TRAIN                                                     | TEST                                                       |
+| --------------------------------------------------------- | ---------------------------------------------------------- |
 | ![train_image](.examples/PROPER_word_1.png "Train Image") | ![test_image](.examples/Tiredness_word_1.png "Test Image") |

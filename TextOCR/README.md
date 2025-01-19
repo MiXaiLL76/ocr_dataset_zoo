@@ -1,6 +1,7 @@
 # Text OCR
 
 ## META
+
 <https://github.com/open-mmlab/mmocr/blob/main/dataset_zoo/textocr/metafile.yml>
 
 ```yaml
@@ -43,7 +44,7 @@ wget https://dl.fbaipublicfiles.com/textvqa/images/train_val_images.zip # (6.6GB
 unzip -qq train_val_images.zip
 ```
 
-## CONVERT 
+## CONVERT
 
 ```bash
 python3 convert_to_general_format.py --labels TextOCR_0.1_train.json --images_dir train_images
@@ -56,6 +57,6 @@ python3 convert_to_general_format.py --labels TextOCR_0.1_val.json --images_dir 
 
 ## READY DATASETS
 
-| TRAIN                                            | TEST                                           |
-| ------------------------------------------------ | ---------------------------------------------- |
+| TRAIN                                                        | TEST                                                       |
+| ------------------------------------------------------------ | ---------------------------------------------------------- |
 | ![train_image](.examples/00c359f294f7dcd9.jpg "Train Image") | ![test_image](.examples/fca0891051e3ad6b.jpg "Test Image") |

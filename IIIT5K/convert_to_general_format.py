@@ -7,14 +7,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 from collections import defaultdict
 
+
 def process_icdar(labels, images_dir):
     dataframe = []
-    with open(labels, encoding='utf-8-sig') as fd:
+    with open(labels, encoding="utf-8-sig") as fd:
         for line in fd.readlines():
-            dataframe.append({
-                "file" : line[:line.index(" ")].strip(),
-                "text" : line[line.index(" ")+1:].strip().strip(),
-            })
+            dataframe.append(
+                {
+                    "file": line[: line.index(" ")].strip(),
+                    "text": line[line.index(" ") + 1 :].strip().strip(),
+                }
+            )
 
     for item in tqdm.tqdm(dataframe):
         text = item["text"]
@@ -70,9 +73,7 @@ def display_data(row):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--labels", type=str, default="./train_label.txt")
-    parser.add_argument(
-        "--images_dir", type=str, default="./IIIT5K/train"
-    )
+    parser.add_argument("--images_dir", type=str, default="./IIIT5K/train")
     parser.add_argument("--display_first", type=bool, default=True)
 
     args = parser.parse_args()

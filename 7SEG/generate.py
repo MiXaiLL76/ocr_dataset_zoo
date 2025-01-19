@@ -10,7 +10,6 @@ import json
 import numpy as np
 import cv2
 import concurrent.futures
-import tqdm
 import pathlib
 import argparse
 import matplotlib.pyplot as plt
@@ -20,14 +19,28 @@ import itertools
 rand = random.Random(42)
 
 
-def save_data(file_name: str, val: str, rand: random.Random, out_bbox : dict, base_id : int) -> dict:
+def save_data(
+    file_name: str, val: str, rand: random.Random, out_bbox: dict, base_id: int
+) -> dict:
     margin = 2
-    x1, y1 = rand.randint(out_bbox["x1"], out_bbox["x1"] + margin), rand.randint(out_bbox["y1"], out_bbox["y1"] + margin)
-    x2, y2 = rand.randint(out_bbox["x2"], out_bbox["x2"] + margin), rand.randint(out_bbox["y1"], out_bbox["y1"] + margin)
-    x3, y3 = rand.randint(out_bbox["x2"], out_bbox["x2"] + margin), rand.randint(out_bbox["y2"], out_bbox["y2"] + margin)
-    x4, y4 = rand.randint(out_bbox["x1"], out_bbox["x1"] + margin), rand.randint(out_bbox["y2"], out_bbox["y2"] + margin)
+    x1, y1 = (
+        rand.randint(out_bbox["x1"], out_bbox["x1"] + margin),
+        rand.randint(out_bbox["y1"], out_bbox["y1"] + margin),
+    )
+    x2, y2 = (
+        rand.randint(out_bbox["x2"], out_bbox["x2"] + margin),
+        rand.randint(out_bbox["y1"], out_bbox["y1"] + margin),
+    )
+    x3, y3 = (
+        rand.randint(out_bbox["x2"], out_bbox["x2"] + margin),
+        rand.randint(out_bbox["y2"], out_bbox["y2"] + margin),
+    )
+    x4, y4 = (
+        rand.randint(out_bbox["x1"], out_bbox["x1"] + margin),
+        rand.randint(out_bbox["y2"], out_bbox["y2"] + margin),
+    )
 
-    segm = np.array([x1, y1, x2, y2, x3, y3, x4, y4, x1, y1]) 
+    segm = np.array([x1, y1, x2, y2, x3, y3, x4, y4, x1, y1])
 
     cnt = np.array(segm).reshape(-1, 1, 2)
     x, y, w, h = cv2.boundingRect(cnt)
@@ -36,7 +49,7 @@ def save_data(file_name: str, val: str, rand: random.Random, out_bbox : dict, ba
         "segs": cnt.ravel().tolist(),
         "bbox": [x, y, w, h],
         "text": val,
-        "base_id" : base_id,
+        "base_id": base_id,
     }
     with open(
         osp.join(
@@ -87,6 +100,7 @@ def get_scale(data):
 
     return int(data[sidx + len(s_str) : eidx])
 
+
 def get_out_bbox(data):
     s_str = "out_bbox:"
     sidx = data.find(s_str)
@@ -98,6 +112,7 @@ def get_out_bbox(data):
         raise TypeError("out_bbox not setup!")
 
     return json.loads(data[sidx + len(s_str) : eidx])
+
 
 def generate(i, output_path):
     base_id = rand.randint(1, 5)
@@ -161,7 +176,7 @@ def generate(i, output_path):
         fd.write(new_index_data)
 
     scale = get_scale(new_index_data)
-    size = (285 * scale, 200* scale)
+    size = (285 * scale, 200 * scale)
 
     hti = Html2Image(
         output_path=output_path, disable_logging=True, custom_flags=["--headless"]
@@ -170,7 +185,14 @@ def generate(i, output_path):
     os.remove(fn)
 
     if osp.exists(os.path.join(output_path, out_fn)):
-        save_data(os.path.join(output_path, out_fn), new_val.strip(), rand=rand, out_bbox=get_out_bbox(new_index_data), base_id=base_id)
+        save_data(
+            os.path.join(output_path, out_fn),
+            new_val.strip(),
+            rand=rand,
+            out_bbox=get_out_bbox(new_index_data),
+            base_id=base_id,
+        )
+
 
 def remove_all(folder):
     os.system(f"rm -rf {folder}")
@@ -216,11 +238,14 @@ def display_data(texts, image_file_name):
     cv2.imwrite(f".examples/base_{row['base_id']}.jpg", image)
 
 
-
-
 def run(f, iterator, images_dir):
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
-        results = list(tqdm.tqdm(executor.map(f, iterator, itertools.repeat(images_dir)), total=len(iterator)))
+        results = list(
+            tqdm.tqdm(
+                executor.map(f, iterator, itertools.repeat(images_dir)),
+                total=len(iterator),
+            )
+        )
     return results
 
 
@@ -237,7 +262,7 @@ if __name__ == "__main__":
     my_iter = range(1, 9999, 3)
     run(generate, my_iter, args.images_dir)
     # generate(9999, args.images_dir)
-    
+
     out_dataset = defaultdict(list)
 
     for file in pathlib.Path(args.images_dir).glob("*.json"):
@@ -245,7 +270,12 @@ if __name__ == "__main__":
             row = json.load(fd)
 
         out_dataset[row["image_name"]].append(
-            {"text": row["text"], "bbox": row["bbox"], "segs": row["segs"], "base_id": row["base_id"]}
+            {
+                "text": row["text"],
+                "bbox": row["bbox"],
+                "segs": row["segs"],
+                "base_id": row["base_id"],
+            }
         )
 
     with open(os.path.join(args.images_dir, "ann_file.jsonl"), "w") as fd:

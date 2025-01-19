@@ -1,12 +1,13 @@
 # SVHN
 
 ## META
+
 <http://ufldl.stanford.edu/housenumbers/>
 
 ```yaml
 Name: 'SVHN'
 Data:
-  Title: The Street View House Numbers (SVHN) Dataset 
+  Title: The Street View House Numbers (SVHN) Dataset
   URL: http://ufldl.stanford.edu/housenumbers/
 ```
 
@@ -19,7 +20,7 @@ wget -O test.tar.gz http://ufldl.stanford.edu/housenumbers/test.tar.gz && tar -x
 
 ```
 
-## CONVERT 
+## CONVERT
 
 ```bash
 python3 convert_to_general_format.py --images_dir train
@@ -32,6 +33,6 @@ python3 convert_to_general_format.py --images_dir test
 
 ## READY DATASETS
 
-| TRAIN                                            | TEST                                           |
-| ------------------------------------------------ | ---------------------------------------------- |
+| TRAIN                                            | TEST                                            |
+| ------------------------------------------------ | ----------------------------------------------- |
 | ![train_image](.examples/19_1.png "Train Image") | ![test_image](.examples/210_2.png "Test Image") |

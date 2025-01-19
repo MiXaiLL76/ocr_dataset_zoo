@@ -1,6 +1,7 @@
 # ICDAR2015
 
 ## META
+
 <https://github.com/open-mmlab/mmocr/blob/main/dataset_zoo/icdar2015/metafile.yml>
 
 ```yaml
@@ -45,7 +46,7 @@ wget --no-check-certificate -O ic15_textrecog_test_img/gt.txt https://rrc.cvc.ua
 
 ```
 
-## CONVERT 
+## CONVERT
 
 ```bash
 python3 convert_to_general_format.py --images_dir ic15_textrecog_train_img_gt
@@ -58,6 +59,6 @@ python3 convert_to_general_format.py --images_dir ic15_textrecog_test_img
 
 ## READY DATASETS
 
-| TRAIN                                            | TEST                                           |
-| ------------------------------------------------ | ---------------------------------------------- |
+| TRAIN                                                              | TEST                                                   |
+| ------------------------------------------------------------------ | ------------------------------------------------------ |
 | ![train_image](.examples/Genaxis_Theatre_word_1.png "Train Image") | ![test_image](.examples/JOINT_word_1.png "Test Image") |
